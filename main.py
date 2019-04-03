@@ -14,6 +14,7 @@ from utils.utils import checkIfComposerExistsBool
 from utils.utils import getDockerfiles
 from utils.utils import buildDockerfiles
 from utils.utils import _run
+from utils.utils import stackRM
 
 import json
 
@@ -67,6 +68,12 @@ class DockerInterface(Frame):
             foldername = area.get(index)
             _run(information, foldername, checkIfComposerExistsBool(foldername))
 
+        def removeStack():
+            message = messagebox.askokcancel("Attention!", "Removing the stack for the current project?")
+            project = area.get(area.curselection())
+            if message:
+                stackRM(information, project)
+
         self.master.title("Py Docker Interface Manager")
         self.pack(fill=BOTH, expand=True)
 
@@ -119,7 +126,7 @@ class DockerInterface(Frame):
                   padx=5, sticky=E + W + S)
 
         ### test button
-        settingsbtn = Button(self, text="TEST")
+        settingsbtn = Button(self, text="Stack RM", command=removeStack)
         settingsbtn.grid(row=4, column=3)
 
         ### test button

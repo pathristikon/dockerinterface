@@ -98,3 +98,13 @@ def checkIfComposerExistsBool(dir):
     return True \
         if glob(BASEDIR + dir + '/docker-compose.yml') \
         else False
+
+@decorators.executeCommand("Removing stack for the project")
+def stackRM(info, project):
+    """
+    Removing an docker stack for the current project
+    :param info:
+    :param project:
+    :return:
+    """
+    return "docker stack rm " + project
