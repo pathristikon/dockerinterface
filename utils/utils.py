@@ -38,7 +38,6 @@ def buildDockerfiles(info, dockers, project, all = False):
         count = 0
         for d in dockers:
             count += 1
-            print(d)
             _build(info, d, project + "_" + str(count))
     else:
         _build(info, dockers[0], project)
@@ -47,6 +46,11 @@ def buildDockerfiles(info, dockers, project, all = False):
 def _build(info, path, name):
     #print("docker build -t " + name + " -f " + path + " " + os.path.dirname(path))
     return "docker build -t " + name + " -f " + path + " " + os.path.dirname(path)
+
+@decorators.executeCommand("Starting project")
+def _run(info, project, is_composer):
+    if is_composer:
+        return "docker stack deploy -c " + BASEDIR + project + "/docker-compose.yml " + project
 
 @decorators.executeCommand("Project changed")
 def getContainers(name):
@@ -89,3 +93,8 @@ def checkIfComposerExists(dir):
     return "Project has docker-compose.yml\n" \
         if glob(BASEDIR + dir + '/docker-compose.yml') \
         else "Project doesn\'t have docker-compose.yml\n"
+
+def checkIfComposerExistsBool(dir):
+    return True \
+        if glob(BASEDIR + dir + '/docker-compose.yml') \
+        else False
