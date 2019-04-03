@@ -1,5 +1,6 @@
 import datetime, os
 import subprocess, shlex, sys
+from subprocess import CalledProcessError
 import _thread
 
 def executeCommand(description):
@@ -34,6 +35,7 @@ def run_command(command, args):
             shell=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
+
     except subprocess.CalledProcessError as err:
         print("Status : FAIL", err.returncode, err.output)
 
@@ -47,6 +49,8 @@ def run_command(command, args):
         sys.stdout.flush()
 
         if process.returncode != 0:
+            args[0].insert("end", "Error: " + process.communicate()[1].decode("utf-8") +" \n")
+            args[0].see("end")
             raise Exception("The subprocess did not terminate correctly.")
 
         # wait for one process to finish
