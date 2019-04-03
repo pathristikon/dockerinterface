@@ -10,8 +10,10 @@ from utils.utils import getWarnings
 from utils.utils import sysPrune
 from utils.utils import inspectProject
 from utils.utils import checkIfComposerExists
+from utils.utils import checkIfComposerExistsBool
 from utils.utils import getDockerfiles
 from utils.utils import buildDockerfiles
+from utils.utils import _run
 
 import json
 
@@ -60,6 +62,11 @@ class DockerInterface(Frame):
             else:
                 buildDockerfiles(information, getDockerfiles(area.get(index)), area.get(index), False)
 
+        def runProject():
+            index = area.curselection()
+            foldername = area.get(index)
+            _run(information, foldername, checkIfComposerExistsBool(foldername))
+
         self.master.title("Py Docker Interface Manager")
         self.pack(fill=BOTH, expand=True)
 
@@ -92,7 +99,7 @@ class DockerInterface(Frame):
         abtn.grid(row=1, column=4)
 
         ### Run button
-        cbtn = Button(self, text="Run", command=self.closeWindow)
+        cbtn = Button(self, text="Run", command=runProject)
         cbtn.grid(row=2, column=3)
 
         ### System Prune button
