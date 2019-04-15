@@ -119,7 +119,7 @@ class DockerInterface(Frame):
         ####################
         # main content area
         ####################
-        main_content = Frame(self.master, relief='groove')
+        main_content = Frame(self.master, relief='flat')
         main_content.pack(expand=True, fill='both', side='left')
 
         lbl = Label(main_content, text="Projects")
