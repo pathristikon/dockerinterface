@@ -8,6 +8,7 @@ def main():
     root = Tk()
     root.geometry("585x490+500+200")
     root.resizable(False, False)
+    root.wm_iconbitmap('docker-interface.ico')
     window.DockerInterface()
     root.mainloop()
 
