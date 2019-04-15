@@ -45,7 +45,7 @@ def buildDockerfiles(info, dockers, project, all = False):
 @decorators.executeCommand("Building Dockerfile(s)")
 def _build(info, path, name):
     #print("docker build -t " + name + " -f " + path + " " + os.path.dirname(path))
-    return "docker build -t " + name + " -f " + path + " " + os.path.dirname(path)
+    return "docker build -t " + name.lower() + " -f " + path + " " + os.path.dirname(path)
 
 @decorators.executeCommand("Starting project")
 def _run(info, project, is_composer):

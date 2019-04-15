@@ -125,12 +125,12 @@ class DockerInterface(Frame):
         information.grid(row=3, column=0, columnspan=3,
                   padx=5, sticky=E + W + S)
 
-        ### test button
-        settingsbtn = Button(self, text="Stack RM", command=removeStack)
+        ### Stack rm button
+        settingsbtn = Button(self, text="Remove", command=removeStack)
         settingsbtn.grid(row=4, column=3)
 
-        ### test button
-        settingsbtn = Button(self, text="TEST")
+        ### About button
+        settingsbtn = Button(self, text="About")
         settingsbtn.grid(row=4, column=4)
 
         ### Help Button
