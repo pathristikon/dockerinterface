@@ -64,7 +64,7 @@ def _run(info, project, is_composer):
         return "docker stack deploy -c " + BASEDIR + project + "/docker-compose.yml " + project
     else:
         #@TODO: to finish the run command
-        return "docker run -d -it " + project + " --rm --name " + project + " " + BASEDIR + project
+        return "docker run -d -it --rm --name " + project + " " + project
 
 @decorators.executeCommand("Project changed")
 def getContainers(name):
@@ -103,22 +103,28 @@ def inspectProject(info, project):
     return "docker ps -f name=" + \
            project + " --format ID={{.ID}}\\nImage={{.Image}}\\nName={{.Names}}\\nPort={{.Ports}}\\n"
 
-def checkIfComposerExists(dir):
-    return "Project has docker-compose.yml\n" \
-        if glob(BASEDIR + dir + '/docker-compose.yml') \
-        else "Project doesn\'t have docker-compose.yml\n"
+@decorators.executeCommand("Removing stack for the project")
+def removeProject(info, project):
+    """
+    Removing an docker stack for the current project
+    if the checkIfComposerExistsBool == TRUE
+    else perform `docker rm`
+    :param info:
+    :param project:
+    :return:
+    """
+    print(project)
+    if checkIfComposerExistsBool(project):
+        return "docker stack rm " + project
+    else:
+        return "docker rm -f " + project
 
 def checkIfComposerExistsBool(dir):
     return True \
         if glob(BASEDIR + dir + '/docker-compose.yml') \
         else False
 
-@decorators.executeCommand("Removing stack for the project")
-def stackRM(info, project):
-    """
-    Removing an docker stack for the current project
-    :param info:
-    :param project:
-    :return:
-    """
-    return "docker stack rm " + project
+def checkIfComposerExists(dir):
+    return "Project has docker-compose.yml\n" \
+        if glob(BASEDIR + dir + '/docker-compose.yml') \
+        else "Project doesn\'t have docker-compose.yml\n"

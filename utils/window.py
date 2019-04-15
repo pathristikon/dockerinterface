@@ -11,7 +11,7 @@ from utils.utils import checkIfComposerExistsBool
 from utils.utils import getDockerfiles
 from utils.utils import buildDockerfiles
 from utils.utils import _run
-from utils.utils import stackRM
+from utils.utils import removeProject
 
 class DockerInterface(Frame):
     """
@@ -75,11 +75,11 @@ class DockerInterface(Frame):
                 foldername = area.get(index)
                 _run(information, foldername, checkIfComposerExistsBool(foldername))
 
-        def removeStack():
+        def removeContainers():
             message = messagebox.askokcancel("Attention!", "Removing the stack for the current project?")
             project = area.get(area.curselection())
             if message:
-                stackRM(information, project)
+                removeProject(information, project)
 
         ####################
         # sidebar area
@@ -104,13 +104,17 @@ class DockerInterface(Frame):
         cbtn = Button(sidebar, text="Prune", command=systemprune)
         cbtn.grid(row=3, column=0, pady=2)
 
-        ### Stack rm button
-        settingsbtn = Button(sidebar, text="Remove", command=removeStack)
+        ### Remove containers button
+        settingsbtn = Button(sidebar, text="Remove", command=removeContainers)
         settingsbtn.grid(row=4, column=0, pady=2)
+
+        ### Clear Button
+        hbtn = Button(sidebar, text="Clear", command=clearConsole)
+        hbtn.grid(row=5, column=0, padx=5, pady=2)
 
         ### Close button
         obtn = Button(sidebar, text="Close", command=self.closeWindow)
-        obtn.grid(row=7, column=0, pady=2)
+        obtn.grid(row=6, column=0, pady=2)
 
         ####################
         # main content area
