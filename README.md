@@ -1,4 +1,4 @@
-## Python docker interface
+# Python docker interface
 
 ## Prerequisites
 Make sure that python3 and docker / docker-compose are installed. That's all :) 
@@ -37,7 +37,7 @@ It will clear the console screen
 ### - Close
 Close the application
 
-#Contributing
+# Contributing
 For any contribution, you know what you have to do :)
 
 
