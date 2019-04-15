@@ -1,13 +1,13 @@
-##Python docker interface
+## Python docker interface
 
-##Prerequisites
+## Prerequisites
 Make sure that python3 and docker / docker-compose are installed. That's all :) 
 
-##Usage
+## Usage
 In order to use this package, perform a git clone and then run the following command:
 `python3 main.py`
 
-##Options
+## Options
 
 ### - Inspect
 The inspect button inspects the current selected project, returning containers that exists for it.
