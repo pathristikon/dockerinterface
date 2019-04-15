@@ -61,9 +61,9 @@ def runTheProject(info, project, is_composer):
     :return:
     """
     if is_composer:
-        return "docker stack deploy -c " + BASEDIR + project + "/docker-compose.yml " + project
+        return "docker stack deploy -c " + BASEDIR + project + "/docker-compose.yml " + project.lower()
     else:
-        return "docker run -d -it --rm --name " + project + " " + project
+        return "docker run -d -it --rm --name " + project.lower() + " " + project.lower()
 
 @decorators.executeCommand("Project changed")
 def getContainers(name):
