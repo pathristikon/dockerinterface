@@ -100,13 +100,13 @@ class DockerInterface(Frame):
         cbtn = Button(sidebar, text="Run", command=runProject)
         cbtn.grid(row=2, column=0, pady=2)
 
-        ### System Prune button
-        cbtn = Button(sidebar, text="Prune", command=systemprune)
-        cbtn.grid(row=3, column=0, pady=2)
-
         ### Remove containers button
         settingsbtn = Button(sidebar, text="Remove", command=removeContainers)
-        settingsbtn.grid(row=4, column=0, pady=2)
+        settingsbtn.grid(row=3, column=0, pady=2)
+
+        ### System Prune button
+        cbtn = Button(sidebar, text="Prune", command=systemprune)
+        cbtn.grid(row=4, column=0, pady=2)
 
         ### Clear Button
         hbtn = Button(sidebar, text="Clear", command=clearConsole)
