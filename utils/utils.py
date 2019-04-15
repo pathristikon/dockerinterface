@@ -49,8 +49,22 @@ def _build(info, path, name):
 
 @decorators.executeCommand("Starting project")
 def _run(info, project, is_composer):
+    """
+    Run the container
+    If is_composer == True, it will run `docker stack deploy`
+    else it will run `docker run command`
+
+    For extra configuration, write a docker-compose.yml file
+    :param info:
+    :param project:
+    :param is_composer:
+    :return:
+    """
     if is_composer:
         return "docker stack deploy -c " + BASEDIR + project + "/docker-compose.yml " + project
+    else:
+        #@TODO: to finish the run command
+        return "docker run -d -it " + project + " --rm --name " + project + " " + BASEDIR + project
 
 @decorators.executeCommand("Project changed")
 def getContainers(name):

@@ -69,9 +69,11 @@ class DockerInterface(Frame):
                 buildDockerfiles(information, getDockerfiles(area.get(index)), area.get(index), False)
 
         def runProject():
-            index = area.curselection()
-            foldername = area.get(index)
-            _run(information, foldername, checkIfComposerExistsBool(foldername))
+            message = messagebox.askokcancel("Attention!", "Start the current project?")
+            if message:
+                index = area.curselection()
+                foldername = area.get(index)
+                _run(information, foldername, checkIfComposerExistsBool(foldername))
 
         def removeStack():
             message = messagebox.askokcancel("Attention!", "Removing the stack for the current project?")
