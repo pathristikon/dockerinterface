@@ -1,4 +1,4 @@
-from tkinter import Text, BOTH, W, N, E, S, Listbox, messagebox
+from tkinter import Tk as tk, Text, BOTH, W, N, E, S, Listbox, messagebox
 from tkinter.ttk import Frame, Button, Label, Style
 
 from utils.utils import getDirs
@@ -14,11 +14,21 @@ from utils.utils import _run
 from utils.utils import stackRM
 
 class DockerInterface(Frame):
+    """
+    Docker interface visual class
+    @TODO: to refactor
+    """
     def __init__(self):
         super().__init__()
         self.initUI()
 
     def initUI(self):
+
+        self.master.title("Py Docker Interface Manager")
+
+        ####################
+        # used functions
+        ####################
 
         def getDirectories(event):
             # current directory that we are looking for
@@ -69,76 +79,82 @@ class DockerInterface(Frame):
             if message:
                 stackRM(information, project)
 
-        self.master.title("Py Docker Interface Manager")
-        self.pack(fill=BOTH, expand=True)
+        ####################
+        # sidebar area
+        ####################
 
-        self.columnconfigure(1, weight=1)
-        self.columnconfigure(3, pad=7)
-        self.rowconfigure(3, weight=1)
-        self.rowconfigure(5, pad=7)
+        sidebar = Frame(self.master, width=200, height=500, relief='flat', borderwidth=2)
+        sidebar.pack(expand=False, fill='both', side='right', anchor='ne')
 
-        lbl = Label(self, text="Projects")
+        ### Inspect Button
+        abtn = Button(sidebar, text="Inspect", command=inspect)
+        abtn.grid(row=0, column=0, pady=2)
+
+        ### Build button
+        abtn = Button(sidebar, text="Build", command=buildProject)
+        abtn.grid(row=1, column=0, pady=2)
+
+        ### Run button
+        cbtn = Button(sidebar, text="Run", command=runProject)
+        cbtn.grid(row=2, column=0, pady=2)
+
+        ### System Prune button
+        cbtn = Button(sidebar, text="Prune", command=systemprune)
+        cbtn.grid(row=3, column=0, pady=2)
+
+        ### Stack rm button
+        settingsbtn = Button(sidebar, text="Remove", command=removeStack)
+        settingsbtn.grid(row=4, column=0, pady=2)
+
+        ### Settings button
+        settingsbtn = Button(sidebar, text="Settings", command=self.closeWindow)
+        settingsbtn.grid(row=5, column=0, pady=2)
+
+        ### Help Button
+        hbtn = Button(sidebar, text="Clear", command=clearConsole)
+        hbtn.grid(row=6, column=0, padx=5, pady=2)
+
+        ### Close button
+        obtn = Button(sidebar, text="Close", command=self.closeWindow)
+        obtn.grid(row=7, column=0, pady=2)
+
+        ### About button
+        settingsbtn = Button(sidebar, text="About")
+        settingsbtn.grid(row=8, column=0, pady=2)
+
+        ####################
+        # main content area
+        ####################
+        main_content = Frame(self.master, relief='groove')
+        main_content.pack(expand=True, fill='both', side='left')
+
+        lbl = Label(main_content, text="Projects")
         lbl.grid(sticky=W, pady=4, padx=5)
 
         ### Directories list
-        area = Listbox(self)
+        area = Listbox(main_content, width=60)
         for directory in getDirs("../"):
             area.insert(1, directory)
 
         area.select_set(0)
 
-        area.grid(row=1, column=0, columnspan=2, rowspan=4,
-                  padx=5, sticky=E + W + N)
+        area.grid(row=1, column=0, rowspan=4,
+                  padx=5, sticky=E + W + N + S)
 
         area.bind('<ButtonRelease-1>', getDirectories)
 
-        ### Inspect Button
-        abtn = Button(self, text="Inspect", command=inspect)
-        abtn.grid(row=1, column=3)
-
-        ### Build button
-        abtn = Button(self, text="Build", command=buildProject)
-        abtn.grid(row=1, column=4)
-
-        ### Run button
-        cbtn = Button(self, text="Run", command=runProject)
-        cbtn.grid(row=2, column=3)
-
-        ### System Prune button
-        cbtn = Button(self, text="Prune", command=systemprune)
-        cbtn.grid(row=2, column=4)
-
-        #### Output area
-        lb2 = Label(self, text="Output >>>")
-        lb2.grid(sticky=W, row=4, column=0, pady=4, padx=5)
-
-        information = Text(self)
+        #information area
+        information = Text(main_content, width=60, height=15)
         information.tag_config('warning', foreground="red")
         information.tag_config('notice', foreground="white", background="blue")
         information.tag_config('inspect', foreground="black", background="lightgray")
         information.tag_config('danger', foreground="white", background="red")
-        information.grid(row=3, column=0, columnspan=3,
-                  padx=5, sticky=E + W + S)
+        information.grid(row=6, column=0,
+                  pady=10, padx=5, sticky=E + W + S + N)
 
-        ### Stack rm button
-        settingsbtn = Button(self, text="Remove", command=removeStack)
-        settingsbtn.grid(row=4, column=3)
-
-        ### About button
-        settingsbtn = Button(self, text="About")
-        settingsbtn.grid(row=4, column=4)
-
-        ### Help Button
-        hbtn = Button(self, text="Clear", command=clearConsole)
-        hbtn.grid(row=5, column=0, padx=5)
-
-        ### Close button
-        obtn = Button(self, text="Close", command=self.closeWindow)
-        obtn.grid(row=5, column=4)
-
-        ### Settings button
-        settingsbtn = Button(self, text="Settings", command=self.closeWindow)
-        settingsbtn.grid(row=5, column=3)
+        #### Output area
+        lb2 = Label(main_content, text="Output >>>")
+        lb2.grid(sticky=W, row=7, column=0, pady=4, padx=5)
 
     def closeWindow(self):
         message = messagebox.askokcancel("Closing application", "Would you really want to exit the application?")

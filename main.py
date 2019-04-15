@@ -6,7 +6,8 @@ from utils import window
 
 def main():
     root = Tk()
-    root.geometry("750x645+500+200")
+    root.geometry("585x490+500+200")
+    root.resizable(False, False)
     window.DockerInterface()
     root.mainloop()
 
