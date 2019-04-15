@@ -108,21 +108,9 @@ class DockerInterface(Frame):
         settingsbtn = Button(sidebar, text="Remove", command=removeStack)
         settingsbtn.grid(row=4, column=0, pady=2)
 
-        ### Settings button
-        settingsbtn = Button(sidebar, text="Settings", command=self.closeWindow)
-        settingsbtn.grid(row=5, column=0, pady=2)
-
-        ### Help Button
-        hbtn = Button(sidebar, text="Clear", command=clearConsole)
-        hbtn.grid(row=6, column=0, padx=5, pady=2)
-
         ### Close button
         obtn = Button(sidebar, text="Close", command=self.closeWindow)
         obtn.grid(row=7, column=0, pady=2)
-
-        ### About button
-        settingsbtn = Button(sidebar, text="About")
-        settingsbtn.grid(row=8, column=0, pady=2)
 
         ####################
         # main content area
