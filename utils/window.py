@@ -29,7 +29,6 @@ class DockerInterface(Frame):
         ####################
         # used functions
         ####################
-
         def getDirectories(event):
             # current directory that we are looking for
             information.see("end")
@@ -84,7 +83,6 @@ class DockerInterface(Frame):
         ####################
         # sidebar area
         ####################
-
         sidebar = Frame(self.master, width=200, height=500, relief='flat', borderwidth=2)
         sidebar.pack(expand=False, fill='both', side='right', anchor='ne')
 
