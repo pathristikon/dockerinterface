@@ -10,7 +10,7 @@ from utils.utils import checkIfComposerExists
 from utils.utils import checkIfComposerExistsBool
 from utils.utils import getDockerfiles
 from utils.utils import buildDockerfiles
-from utils.utils import _run
+from utils.utils import runTheProject
 from utils.utils import removeProject
 
 class DockerInterface(Frame):
@@ -73,10 +73,10 @@ class DockerInterface(Frame):
             if message:
                 index = area.curselection()
                 foldername = area.get(index)
-                _run(information, foldername, checkIfComposerExistsBool(foldername))
+                runTheProject(information, foldername, checkIfComposerExistsBool(foldername))
 
         def removeContainers():
-            message = messagebox.askokcancel("Attention!", "Removing the stack for the current project?")
+            message = messagebox.askokcancel("Attention!", "Removing the containers for the current project?")
             project = area.get(area.curselection())
             if message:
                 removeProject(information, project)

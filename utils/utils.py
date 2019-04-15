@@ -48,7 +48,7 @@ def _build(info, path, name):
     return "docker build -t " + name.lower() + " -f " + path + " " + os.path.dirname(path)
 
 @decorators.executeCommand("Starting project")
-def _run(info, project, is_composer):
+def runTheProject(info, project, is_composer):
     """
     Run the container
     If is_composer == True, it will run `docker stack deploy`
@@ -102,7 +102,7 @@ def inspectProject(info, project):
     return "docker ps -f name=" + \
            project + " --format ID={{.ID}}\\nImage={{.Image}}\\nName={{.Names}}\\nPort={{.Ports}}\\n"
 
-@decorators.executeCommand("Removing stack for the project")
+@decorators.executeCommand("Removing containers for the current project")
 def removeProject(info, project):
     """
     Removing an docker stack for the current project
