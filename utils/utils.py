@@ -114,9 +114,9 @@ def removeProject(info, project):
     """
     print(project)
     if checkIfComposerExistsBool(project):
-        return "docker stack rm " + project
+        return "docker stack rm " + project.lower()
     else:
-        return "docker rm -f " + project
+        return "docker rm -f " + project.lower()
 
 def checkIfComposerExistsBool(dir):
     return True \
