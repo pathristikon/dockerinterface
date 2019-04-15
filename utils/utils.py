@@ -63,7 +63,6 @@ def _run(info, project, is_composer):
     if is_composer:
         return "docker stack deploy -c " + BASEDIR + project + "/docker-compose.yml " + project
     else:
-        #@TODO: to finish the run command
         return "docker run -d -it --rm --name " + project + " " + project
 
 @decorators.executeCommand("Project changed")
