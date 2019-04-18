@@ -1,3 +1,12 @@
+"""
+This script is part of the docker interface python script
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+@author Alexandru Dumitru
+"""
+
 import os, socket
 from glob import glob
 from . import decorators
